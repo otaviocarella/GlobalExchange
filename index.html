@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalExchange | Conversor de Moedas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="particles-container" id="particles-js"></div>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-globe-americas"></i>
+            </div>
+            <h1>GlobalExchange</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#conversor" class="active">Conversor</a></li>
+                <li><a href="#tendencias">Tendências</a></li>
+                <li><a href="#historico">Histórico</a></li>
+            </ul>
+        </nav>
+        <div class="theme-switch">
+            <i class="fas fa-moon"></i>
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <i class="fas fa-sun"></i>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="title-animated">Conversão de moedas em tempo real</h2>
+                    <p>Converta instantaneamente entre mais de 160 moedas com taxas atualizadas.</p>
+                    <a href="#conversor" class="cta-button">Começar agora</a>
+                </div>
+                <div class="hero-image">
+                    <div class="floating-coins">
+                        <div class="coin" data-currency="USD">$</div>
+                        <div class="coin" data-currency="EUR">€</div>
+                        <div class="coin" data-currency="GBP">£</div>
+                        <div class="coin" data-currency="JPY">¥</div>
+                        <div class="coin" data-currency="BTC">₿</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conversor">
+            <div class="container">
+                <h2>Conversor de Moedas</h2>
+
+                <div class="converter-card">
+                    <div class="card-content">
+                        <div class="amount-input">
+                            <label for="amount">Valor</label>
+                            <input type="number" id="amount" placeholder="Digite o valor" value="1">
+                        </div>
+
+                        <div class="currency-inputs">
+                            <div class="currency-from">
+                                <label for="from-currency">De</label>
+                                <div class="custom-select">
+                                    <div class="select-selected" id="from-currency-display">
+                                        <img src="https://flagcdn.com/w20/br.png" alt="BRL" class="flag-icon">
+                                        <span>BRL - Real Brasileiro</span>
+                                    </div>
+                                    <div class="select-items hidden" id="from-currency-list">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="swap-button" class="swap-button">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+
+                            <div class="currency-to">
+                                <label for="to-currency">Para</label>
+                                <div class="custom-select">
+                                    <div class="select-selected" id="to-currency-display">
+                                        <img src="https://flagcdn.com/w20/us.png" alt="USD" class="flag-icon">
+                                        <span>USD - Dólar Americano</span>
+                                    </div>
+                                    <div class="select-items hidden" id="to-currency-list">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="convert-button" class="convert-button">
+                            <span>Converter</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="result-container">
+                        <div class="result hidden" id="result">
+                            <div class="result-amount">
+                                <span id="result-value">--</span>
+                                <span id="result-currency">USD</span>
+                            </div>
+                            <div class="result-details">
+                                <p><span id="from-amount">1 BRL</span> = <span id="rate">0.00 USD</span></p>
+                                <p class="updated-time">Atualizado: <span id="updated-time">agora</span></p>
+                            </div>
+                        </div>
+
+                        <div class="loader" id="loader">
+                            <div class="spinner"></div>
+                            <p>Obtendo taxas atualizadas...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tendencias">
+            <div class="container">
+                <h2>Tendências do Mercado</h2>
+                <div class="market-trends">
+                    <div class="trend-cards-container">
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="currency-chart"></canvas>
+                    </div>
+
+                    <div class="chart-controls">
+                        <div class="base-currency-selector">
+                            <label>Moeda base:</label>
+                            <select id="chart-base-currency">
+                                <option value="BRL">BRL - Real Brasileiro</option>
+                                <option value="USD">USD - Dólar Americano</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - Libra Esterlina</option>
+                            </select>
+                        </div>
+                        <div class="time-period-selector">
+                            <button data-period="7" class="active">7D</button>
+                            <button data-period="30">1M</button>
+                            <button data-period="90">3M</button>
+                            <button data-period="180">6M</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="historico">
+            <div class="container">
+                <h2>Histórico de Conversões</h2>
+                <div class="history-container">
+                    <div class="history-list">
+                        <div class="history-header">
+                            <div class="history-column">Data/Hora</div>
+                            <div class="history-column">De</div>
+                            <div class="history-column">Para</div>
+                            <div class="history-column">Taxa</div>
+                            <div class="history-column">Ações</div>
+                        </div>
+                        <div id="history-items">
+                            <div class="empty-history">
+                                <i class="fas fa-history"></i>
+                                <p>Seu histórico de conversões aparecerá aqui</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history-actions">
+                        <button id="clear-history" class="action-button">
+                            <i class="fas fa-trash"></i>
+                            Limpar histórico
+                        </button>
+                        <button id="export-history" class="action-button">
+                            <i class="fas fa-file-export"></i>
+                            Exportar CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-globe-americas"></i>
+                    <h2>GlobalExchange</h2>
+                    <p>Conversão de moedas em tempo real</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h3>Navegação</h3>
+                        <ul>
+                            <li><a href="#conversor">Conversor</a></li>
+                            <li><a href="#tendencias">Tendências</a></li>
+                            <li><a href="#historico">Histórico</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Desenvolvido por Otavio Carella. Projeto pessoal para portfólio.</p>
+                <p>Dados fornecidos por <a href="https://www.exchangerate-api.com" target="_blank">ExchangeRate-API</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <p class="notification-message"></p>
+        </div>
+        <button class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
